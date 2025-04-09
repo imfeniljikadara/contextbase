@@ -1,17 +1,16 @@
 {
-  "name": "mcp-server",
+  "name": "contextbase",
+  "description": "A mcp server for storing and managing user context for ai apps via api",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "start": "ts-node src/index.ts",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
