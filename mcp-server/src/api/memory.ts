@@ -60,4 +60,15 @@ export const memoryRoutes: FastifyPluginAsync = async (app) => {
     const results = await searchContext(userId, query);
     reply.send({ results });
   });
+
+  // new POST based DELETE endpoint, This is useful for some clients that don't support DELETE method or when the key is too long for a URL
+  app.post('/delete', async (req, reply) => {
+    const schema = z.object({
+      key: z.string(),
+    });
+    const data = schema.parse(req.body);
+    const userId = (req as any).user.id;
+    await deleteContext(userId, data.key);
+    reply.send({ success: true, message: 'Deleted via POST' });
+  });
 };
