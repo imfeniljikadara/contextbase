@@ -35,14 +35,9 @@ export async function listContextKeys(userId: string): Promise<string[]> {
 
 export async function searchContext(userId: string, query: string) {
   const keys = await redis.keys(`${userId}:*`);
-  const results: { key: string; value: any }[] = [];
+  const matchedKeys = keys
+    .map((key) => key.replace(`${userId}:`, ""))
+    .filter((key) => key.toLowerCase().includes(query.toLowerCase()));
 
-  for (const key of keys) {
-    const value = await redis.get(key);
-    if (value?.toLowerCase().includes(query.toLowerCase())) {
-      results.push({ key: key.split(':')[1], value: JSON.parse(value) });
-    }
-  }
-
-  return results;
+  return matchedKeys;
 }
